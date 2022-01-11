@@ -80,6 +80,7 @@ class Property(models.Model):
         help_text=_("Change property visibility"),
         default=True,
     )
+    property_location = models.CharField(max_length=255)
     location_link = models.URLField(max_length=200)
     document_file = models.FileField(upload_to="images/", blank=True)
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True, editable=False)
