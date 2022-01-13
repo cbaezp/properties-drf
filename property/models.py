@@ -1,6 +1,7 @@
 from agent.models import Agent
 from django.db import models
 from django.urls import reverse
+from django.utils.timezone import timezone
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -44,8 +45,8 @@ class PropertyFeature(models.Model):
 
 class PropertySpecification(models.Model):
 
-    property_features = models.ForeignKey(PropertyFeature, on_delete=models.RESTRICT)
     name = models.CharField(verbose_name=_("Name"), help_text=_("Required"), max_length=255)
+    feature = models.ForeignKey(PropertyFeature, on_delete=models.CASCADE, related_name="feature_specification")
 
     def __str__(self):
         return self.name
@@ -100,7 +101,7 @@ class Property(models.Model):
 
 class PropertySpecificationValue(models.Model):
 
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="property_specification_value")
     specification = models.ForeignKey(PropertySpecification, on_delete=models.RESTRICT)
     value = models.CharField(
         verbose_name=_("value"),

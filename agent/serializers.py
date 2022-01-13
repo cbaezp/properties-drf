@@ -8,3 +8,9 @@ class AgentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agent
         fields = "__all__"
+
+
+class AgentSerializerPreview(serializers.ModelSerializer):
+    class Meta:
+        model = Agent
+        fields = ("name", "photo")
